@@ -1,11 +1,12 @@
-from CaesarCipher import *
-from VigenereCipher import *
-from OneTimePad import *
-from DES import *
-from AES import *
-import binascii
-import sys
-from Crypto import Random
+# from CaesarCipher import *
+# from VigenereCipher import *
+# from OneTimePad import *
+# from DES import *
+# from AES import *
+from RSA import *
+# import binascii
+# import sys
+# from Crypto import Random
 
 input_text = input("Enter plain text : ")
 #       CAESER CYPHER
@@ -53,3 +54,9 @@ input_text = input("Enter plain text : ")
 # print(sys.getsizeof(cipher_text))
 # print("Encrypted Text : ",cipher_text.hex())
 # print("Decrypted Text : ",AESdecrypt(cipher_text, key))
+
+# plain_text = "hello world"
+cipher_text = RSAencrypt(input_text)
+print(cipher_text)
+plain_text = RSAdecrypt(cipher_text)
+print(plain_text)
