@@ -3,12 +3,14 @@
 # from OneTimePad import *
 # from DES import *
 # from AES import *
-from RSA import *
+# from RSA import *
+from Diffie_Hellman_key_exchange import *
 # import binascii
 # import sys
 # from Crypto import Random
 
-input_text = input("Enter plain text : ")
+# input_text = input("Enter plain text : ")
+
 #       CAESER CYPHER
 # print("Encrypted Text : " + caeser_encryptv2(input_text,15))
 # print("Decrypted Text : " + caeser_decryptv2(caeser_encryptv2(input_text,15),15))
@@ -55,8 +57,24 @@ input_text = input("Enter plain text : ")
 # print("Encrypted Text : ",cipher_text.hex())
 # print("Decrypted Text : ",AESdecrypt(cipher_text, key))
 
+#       RSA Encryption
 # plain_text = "hello world"
-cipher_text = RSAencrypt(input_text)
-print(cipher_text)
-plain_text = RSAdecrypt(cipher_text)
-print(plain_text)
+# cipher_text = RSAencrypt(input_text)
+# print(cipher_text)
+# plain_text = RSAdecrypt(cipher_text)
+# print(plain_text)
+
+#       DIFFIE HELLMAN KEY EXCHANGE
+P = generatePrime()
+print("Prime number:", P)
+G = random.choice(findPrimitive(P))
+print("Primitive root:", G)
+XA = random.randint(20000, P)
+YA = power(G,XA,P)
+print("private & public key of a:", XA, YA)
+XB = random.randint(20000, P)
+YB = power(G,XB,P)
+print("private & public key of b:", XB, YB)
+A = power(YB,XA,P)
+B = power(YA,XB,P)
+print("secret key of a & b:", A, B)
