@@ -16,7 +16,7 @@ Created on Sun May 16 20:32:20 2021
 6. Public key = {e, n}
 7. Private key = {d, n}
 8. For encryption, c = (M^e)mode n
-8. For encryption, M = (c^e)mode n
+8. For decryption, M = (c^e)mode n
 '''
 
 import sympy
