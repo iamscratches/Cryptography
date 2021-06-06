@@ -80,3 +80,21 @@ def findPrimitive(n):
         return roots
 	# If no primitive root found
     return -1
+
+
+def generate_key():
+    P = generatePrime()
+    print("Prime number:", P)
+    G = random.choice(findPrimitive(P))
+    print("Primitive root:", G)
+    XA = random.randint(20000, P)
+    YA = power(G,XA,P)
+    print("private & public key of a:", XA, YA)
+    XB = random.randint(20000, P)
+    YB = power(G,XB,P)
+    print("private & public key of b:", XB, YB)
+    A = power(YB,XA,P)
+    B = power(YA,XB,P)
+    print("secret key of a & b:", A, B)
+
+# generate_key()

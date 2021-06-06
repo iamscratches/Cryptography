@@ -1,29 +1,15 @@
 # -*- coding: utf-8 -*-
 """
-Created on Sun May 16 20:32:20 2021
+Created on Sat Jun  5 14:04:01 2021
 
 @author: subhankar
 """
-
-'''
-1. Calculate two large prime numbers P and Q
-2. Calculate n = P*Q
-3. Calculate fi(n) = (P-1)(Q-1)
-4. Assume e such that gcd(e, fi(n)) = 1 and 1<e<fi(n)
-5. Assume d such that d = e^(-1) mod fi(n)
-                    =>d*e mod fi(n) = 1 mod fi(n)
-                    =>d*e mod fi(n) = 1
-6. Public key = {e, n}
-7. Private key = {d, n}
-8. For encryption, c = (M^e)mode n
-8. For decryption, M = (c^e)mode n
-'''
 
 import sympy
 import math
 
 def generateKey():    
-    return sympy.randprime(200, 20000),sympy.randprime(200, 20000)
+    return sympy.randprime(300, 30000),sympy.randprime(300, 30000)
 
 def generatePair():
     i = 1
@@ -32,12 +18,12 @@ def generatePair():
         factors = get_factors(fi*i+1)
         print("checkpoint 3", factors)
         i += 1
-        if(len(factors)>4):
+        if(len(factors)>8):
             break
         
     print("checkpoint 4 final", factors)
-    E = factors[int(len(factors)-2)]
-    D = factors[int(len(factors)-1)]
+    E = factors[int(len(factors) - 2)]
+    D = factors[int(len(factors) - 1)]
     print("checkpoint 5 final", E, D)
     if(E<=1 or E>=fi):
         print("failed")
@@ -47,7 +33,8 @@ def generatePair():
 
 def get_factors(x):
    factors = []
-   i = 1       
+   i = 1
+       
    while i <= math.sqrt(x):         
         if (x % i == 0) :
             factors.append(i)
@@ -57,7 +44,6 @@ def get_factors(x):
         i = i + 1
    print()
    return factors
-
 
 generatedPrime = generateKey()
 P=generatedPrime[0]
@@ -83,14 +69,10 @@ def RSAencrypt(plain_text):
     plain_text = list(plain_text)
     cipher_text = []
     for i in plain_text:
-        cipher_text.append((ord(i)**public_key[0])%public_key[1])
+        cipher_text.append(((i**public_key[0])%public_key[1]).to_bytes(4,'little'))
+        # print(cipher_text)
     return cipher_text
 
 def RSAdecrypt(cipher_text):
-    plain_text = []
-    for i in cipher_text:
-        plain_text.append(chr((i**private_key[0])%private_key[1]))
-    plain_text = ''.join(plain_text)
-    return plain_text
-
-# print(RSAdecrypt(RSAencrypt("hello world")))
+    cipher_text = int.from_bytes(cipher_text, "little")
+    return ((cipher_text**private_key[0])%private_key[1]).to_bytes(1,'little')
