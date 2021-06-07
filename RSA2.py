@@ -9,7 +9,7 @@ import sympy
 import math
 
 def generateKey():    
-    return sympy.randprime(300, 30000),sympy.randprime(300, 30000)
+    return sympy.randprime(300, 3000),sympy.randprime(300, 3000)
 
 def generatePair():
     i = 1
@@ -76,3 +76,18 @@ def RSAencrypt(plain_text):
 def RSAdecrypt(cipher_text):
     cipher_text = int.from_bytes(cipher_text, "little")
     return ((cipher_text**private_key[0])%private_key[1]).to_bytes(1,'little')
+
+def RSAdecrypt2(cipher_text_full):
+    enlist = list(cipher_text_full)
+    i = 0
+    cipher_text_group = []
+    while(i<len(enlist)):    
+        cipher_text_group.append(bytes(bytearray(enlist[i:i+4])))
+        i += 4        
+    # print(cipher_text_group)
+    
+    plain_text = []
+    for cipher_text in cipher_text_group:
+        cipher_text = int.from_bytes(cipher_text, "little")
+        plain_text.append(((cipher_text**private_key[0])%private_key[1]).to_bytes(1,'little'))
+    return plain_text
