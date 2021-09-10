@@ -4,10 +4,10 @@
 # from DES import *
 # from AES import *
 # from RSA import *
-# from Diffie_Hellman_key_exchange import *
-# import binascii
-# import sys
-# from Crypto import Random
+from Diffie_Hellman_key_exchange import *
+import binascii
+import sys
+from Crypto import Random
 
 # input_text = input("Enter plain text : ")
 
@@ -65,16 +65,16 @@
 # print(plain_text)
 
 #       DIFFIE HELLMAN KEY EXCHANGE
-# P = generatePrime()
-# print("Prime number:", P)
-# G = random.choice(findPrimitive(P))
-# print("Primitive root:", G)
-# XA = random.randint(20000, P)
-# YA = power(G,XA,P)
-# print("private & public key of a:", XA, YA)
-# XB = random.randint(20000, P)
-# YB = power(G,XB,P)
-# print("private & public key of b:", XB, YB)
-# A = power(YB,XA,P)
-# B = power(YA,XB,P)
-# print("secret key of a & b:", A, B)
+P = generatePrime()
+print("Prime number:", P)
+G = random.choice(findPrimitive(P))
+print("Primitive root:", G)
+XA = random.randint(20000, P)
+YA = power(G,XA,P)
+print("private & public key of a:", XA, YA)
+XB = random.randint(20000, P)
+YB = power(G,XB,P)
+print("private & public key of b:", XB, YB)
+A = power(YB,XA,P)
+B = power(YA,XB,P)
+print("secret key of a & b:", A, B)
